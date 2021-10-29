@@ -1,0 +1,108 @@
+import './App.css';
+import { useEffect, useState } from 'react';
+// import Header from './components/Header/Header';
+import axios from 'axios';
+
+function App() {
+  const [data, setData] = useState([]);
+  const [edit, setEdit] = useState(false);
+  const [idData, setIdData] = useState();
+  const [nama, setNama] = useState();
+  const [score, setScore] = useState();
+
+  const fetchData = () => {
+    axios
+      .get('http://localhost:3001/score')
+      .then((res) => setData(res.data))
+      .catch((err) => console.error(err));
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post('http://localhost:3001/score', { name: nama, score: score })
+      .then(() => {
+        fetchData();
+        setNama('');
+        setScore('');
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleEdit = () => {
+    axios
+      .put(`http://localhost:3001/score/${idData}`, {
+        name: nama,
+        score: score,
+      })
+      .then(() => {
+        fetchData();
+        setIdData('');
+        setNama('');
+        setScore('');
+        setEdit(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:3001/score/${id}`)
+      .then(() => fetchData())
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        {/* <Header title={nama} changeTitle={(value) => setNama(value)} /> */}
+        {data.map((item) => (
+          <p style={{ margin: 0 }}>
+            {item.name} : {item.score}
+            <button
+              type="button"
+              onClick={() => {
+                setIdData(item.id);
+                setEdit(true);
+                setNama(item.name);
+                setScore(item.score);
+              }}
+            >
+              edit
+            </button>
+            <button type="button" onClick={() => handleDelete(item.id)}>
+              delete
+            </button>
+          </p>
+        ))}
+        <input
+          type="text"
+          placeholder="name"
+          value={nama}
+          onChange={(e) => setNama(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="score"
+          value={score}
+          onChange={(e) => setScore(e.target.value)}
+        />
+        <button onClick={edit ? handleEdit : handleSubmit}>Submit</button>
+        {/* <h6>{count}</h6>
+        <h6>{name}</h6>
+        <input
+          type="text"aa
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button onClick={() => setCount(count + 1)}>plus</button>
+        <button onClick={() => setCount(count - 1)}>minus</button> */}
+      </header>
+    </div>
+  );
+}
+
+export default App;
