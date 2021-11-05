@@ -1,18 +1,54 @@
-import './App.css';
+import { useState, createContext, useReducer } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import './App.css';
+
+export const AppContext = createContext({
+  nama: '',
+  setNama: () => {},
+});
+
+const initialState = { count: 0 };
+
+function AppReducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
 
 function App() {
-  // const [nama, setNama] = useState('adam');
+  const [nama, setNama] = useState('adam');
+  const theme = createTheme();
+  const [state, dispatch] = useReducer(AppReducer, initialState);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/" component={Home} />
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <AppContext.Provider
+        value={{
+          nama,
+          setNama,
+          state,
+          dispatch,
+        }}
+      >
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/about" component={About} />
+          </Switch>
+        </Router>
+      </AppContext.Provider>
+    </ThemeProvider>
   );
-
   // return (
   //   <div className="App">
   //     <header className="App-header">
