@@ -5,6 +5,8 @@ import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 export const AppContext = createContext({
   nama: '',
@@ -31,22 +33,24 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContext.Provider
-        value={{
-          nama,
-          setNama,
-          state,
-          dispatch,
-        }}
-      >
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/about" component={About} />
-          </Switch>
-        </Router>
-      </AppContext.Provider>
+      <Provider store={store}>
+        <AppContext.Provider
+          value={{
+            nama,
+            setNama,
+            state,
+            dispatch,
+          }}
+        >
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/about" component={About} />
+            </Switch>
+          </Router>
+        </AppContext.Provider>
+      </Provider>
     </ThemeProvider>
   );
   // return (

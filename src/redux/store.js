@@ -1,5 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import rootReducer from './rootReducer';
+import rootReducer from './reducer/rootReducer';
 import createSagaMiddleware from '@redux-saga/core';
 import rootSaga from './saga/rootSaga';
 
