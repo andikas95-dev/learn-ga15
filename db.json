@@ -1,4 +1,16 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "nama": "Andika",
+      "tinggal": "jakarta"
+    },
+    {
+      "nama": "Channy",
+      "tinggal": "Batam",
+      "id": 2
+    }
+  ],
   "posts": [
     {
       "id": 1,

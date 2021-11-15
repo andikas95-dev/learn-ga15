@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
+import Users from './pages/Users/Users';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -47,6 +48,11 @@ function App() {
               <Route exact path="/" component={Login} />
               <Route exact path="/home" component={Home} />
               <Route exact path="/about" component={About} />
+              <Route exact path="/users" component={Users} />
+              <Route path='*'>
+              <h1>Page Not Found</h1>
+              <h1>404</h1>
+              </Route>
             </Switch>
           </Router>
         </AppContext.Provider>
