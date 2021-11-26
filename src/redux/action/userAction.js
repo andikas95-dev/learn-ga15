@@ -50,16 +50,49 @@ export const createUser = (data) => {
 };
 
 export const editUser = (id, data) => {
-  return {
-    type: `${EDIT_USER}_LOADING`,
-    id,
-    data,
+  return (dispatch) => {
+    dispatch({ type: `${EDIT_USER}_LOADING` });
+
+    axios({
+      method: 'PUT',
+      url: `http://localhost:3001/users/${id}`,
+      data,
+    })
+      .then(() => {
+        dispatch({
+          type: `${EDIT_USER}_FULFILLED`,
+          // payload: response.data,
+        });
+        dispatch(getUser());
+      })
+      .catch((error) => {
+        dispatch({
+          type: `${EDIT_USER}_ERROR`,
+          error: error.message,
+        });
+      });
   };
 };
 
 export const deleteUser = (id) => {
-  return {
-    type: `${DELETE_USER}_LOADING`,
-    id,
+  return(dispatch) => {
+    dispatch ({ type: `${DELETE_USER}_LOADING` });
+    
+    axios({
+      method: 'DELETE',
+      url: `http://localhost:3001/users/${id}`,
+    })
+    .then(() => {
+      dispatch({
+        type: `${DELETE_USER}_FULFILLED`,
+      });
+      dispatch(getUser());
+    })
+    .catch((error) => {
+      dispatch({
+        type: `${DELETE_USER}_ERROR`,
+        error: error.message,
+      });
+    })
   };
 };
