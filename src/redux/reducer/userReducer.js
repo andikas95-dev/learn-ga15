@@ -58,22 +58,22 @@ const userReducer = (state = initialState, action) => {
         isLoading: false,
         error: error,
       };
-      case `${DELETE_USER}_LOADING`:
-        return {
-          ...state,
-          isLoading: true,
-        };
-      case `${DELETE_USER}_FULFILLED`:
-        return {
-          ...state,
-          isLoading: false,
-        };
-      case `${DELETE_USER}_ERROR`:
-        return {
-          ...state,
-          isLoading: false,
-          error: error,
-        };
+    case `${DELETE_USER}_LOADING`:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case `${DELETE_USER}_FULFILLED`:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case `${DELETE_USER}_ERROR`:
+      return {
+        ...state,
+        isLoading: false,
+        error: error,
+      };
     default:
       return {
         ...state,
