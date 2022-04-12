@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import { AppContext } from '../../App';
 import ChangeNama from '../../components/ChangeNama/ChangeNama';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const queryLG = useMediaQuery((theme) => theme.breakpoints.up('lg'));
 
   const { nama, state, dispatch } = useContext(AppContext);
@@ -56,7 +58,14 @@ function Login() {
         </Stack>
       </Grid>
       <Grid item xs={12} lg={6}>
-        Kanan
+        <button
+          onClick={() => {
+            console.log('test');
+            navigate('/home');
+          }}
+        >
+          Home
+        </button>
       </Grid>
     </Grid>
   );

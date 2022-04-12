@@ -1,5 +1,5 @@
 import { useState, createContext, useReducer } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
@@ -40,11 +40,18 @@ function App() {
         }}
       >
         <Router>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/about" component={About} />
-          </Switch>
+          <Routes>
+            <Route path="/">
+              <Route index element={<Login />} />
+              <Route path="home" element={<Home />} />
+              <Route path="about" element={<About />} />
+
+              {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+              <Route path="*" element={<h5>No Page</h5>} />
+            </Route>
+          </Routes>
         </Router>
       </AppContext.Provider>
     </ThemeProvider>

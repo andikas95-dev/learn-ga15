@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
 
 // function useQuery() {
@@ -8,11 +7,9 @@ import { useHistory } from 'react-router-dom';
 // }
 
 function Home() {
-  const router = useHistory();
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
-  console.log(router);
   useEffect(() => {
     axios
       .get('https://api.themoviedb.org/3/movie/popular', {
@@ -23,8 +20,8 @@ function Home() {
         },
       })
       .then((res) => setData(res.data.results))
-      .catch((err) => console.log(err))
-      .finally(() => router.push(`/?page=${page}`));
+      .catch((err) => console.log(err));
+    // .finally(() => navigate(`/?page=${page}`));
   }, [page]);
 
   return (
