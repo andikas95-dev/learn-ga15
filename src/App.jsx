@@ -51,7 +51,7 @@ function App() {
                 <Route path="about" element={<About />} />
                 <Route path="users" element={<Users />} />
                 <Route
-                  path="*"
+                  path="*"  
                   element={
                     <>
                       <h1>Page Not Found</h1>
