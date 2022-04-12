@@ -1,5 +1,5 @@
 import { useState, createContext, useReducer } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
@@ -44,16 +44,23 @@ function App() {
           }}
         >
           <Router>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/users" component={Users} />
-              <Route path='*'>
-              <h1>Page Not Found</h1>
-              <h1>404</h1>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Login />} />
+                <Route path="home" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="users" element={<Users />} />
+                <Route
+                  path="*"
+                  element={
+                    <>
+                      <h1>Page Not Found</h1>
+                      <h1>404</h1>
+                    </>
+                  }
+                />
               </Route>
-            </Switch>
+            </Routes>
           </Router>
         </AppContext.Provider>
       </Provider>
